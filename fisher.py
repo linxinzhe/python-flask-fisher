@@ -1,9 +1,23 @@
 from flask import Flask, make_response
 
+from helper import is_isbn_or_key
+
 app = Flask(__name__)
 app.config.from_object('config')
 
 __author__ = 'linxinzhe'
+
+
+@app.route("/book/search/<q>/<page>")
+def search(q, page):
+    """
+    q : 普通关键字 ISBN
+    page :
+    :return:
+    """
+    isbn_or_key = is_isbn_or_key(q)
+
+    pass
 
 
 @app.route('/hello/')  # 唯一url原则，带/可以兼容不带/情况
