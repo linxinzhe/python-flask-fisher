@@ -1,29 +1,10 @@
-import json
+from flask import make_response
 
-from flask import Flask, make_response, jsonify
+from app import create_app
 
-from helper import is_isbn_or_key
-from yushu_book import YuShuBook
-
-app = Flask(__name__)
-app.config.from_object('config')
+app = create_app()
 
 __author__ = 'linxinzhe'
-
-
-@app.route("/book/search/<q>/<page>")
-def search(q, page):
-    """
-    q : 普通关键字 ISBN
-    page :
-    :return:
-    """
-    isbn_or_key = is_isbn_or_key(q)
-    if isbn_or_key == 'isbn':
-        result = YuShuBook.search_by_isbn(q)
-    else:
-        result = YuShuBook.search_by_keyword(q)
-    return jsonify(result)
 
 
 @app.route('/hello/')  # 唯一url原则，带/可以兼容不带/情况
