@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, make_response
+from flask import Flask, make_response, jsonify
 
 from helper import is_isbn_or_key
 from yushu_book import YuShuBook
@@ -23,7 +23,7 @@ def search(q, page):
         result = YuShuBook.search_by_isbn(q)
     else:
         result = YuShuBook.search_by_keyword(q)
-    return json.dumps(result),200,{'content-type':'application/json'}
+    return jsonify(result)
 
 
 @app.route('/hello/')  # 唯一url原则，带/可以兼容不带/情况
